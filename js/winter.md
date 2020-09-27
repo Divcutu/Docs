@@ -20,11 +20,12 @@
 ` function *foo(){} `
 5. 类： 用 **class** 定义的类也是一个函数
 ```
-class foo() {
-  constructor(){
-    ....
-  }
-}
+   class foo() {
+      constructor(){
+         ....
+      }
+   }
+   
 ```
 6. 7. 8. 异步函数：普通函数、箭头函数和生成器函数加上 **async** 关键字
 ```
