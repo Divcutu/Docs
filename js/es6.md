@@ -4,7 +4,7 @@
 <a href="javascript:void 0" class="href-title" onclick="document.querySelector('#ID-1').scrollIntoView()">变量的解构赋值</a>
 
 <span id="ID-1"></span>
-### 变量的解构D-1赋值
+## 变量的解构赋值
 
 #### 数组
 
@@ -99,6 +99,23 @@
 ```
 上面代码是为函数move的参数指定默认值，而不是为变量x和y指定默认值，所以会得到与前一种写法不同的结果。
 
+## 字符串扩展
+
+1. ES6 为字符串添加了遍历器接口(Iterator)
+2. 模板字符串可以嵌套、可以调用函数、若不是字符串则转为字符串
+3. 可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串。这被称为“标签模板”功能
+    ```
+      alert`hello`
+      // 等同于
+      alert(['hello'])
+
+      let a = 5;
+      let b = 10;
+
+      tag`Hello ${ a + b } world ${ a * b }`;
+      // 等同于
+      tag(['Hello ', ' world ', ''], 15, 50);
+    ```
 
 
 <div class="grid-layout">
