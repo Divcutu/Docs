@@ -4,7 +4,8 @@
 <a href="javascript:void 0" class="href-title" onclick="document.querySelector('#ID-1').scrollIntoView()">变量的解构赋值</a>
 
 <span id="ID-1"></span>
-## 变量的解构赋值
+
+### 变量的解构赋值
 
 #### 数组
 
@@ -103,7 +104,7 @@
 
 1. ES6 为字符串添加了遍历器接口(Iterator)
 2. 模板字符串可以嵌套、可以调用函数、若不是字符串则转为字符串
-3. 可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串。这被称为“标签模板”功能
+3. 模板字符串可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串。这被称为“标签模板”功能
     ```
       alert`hello`
       // 等同于
@@ -115,7 +116,54 @@
       tag`Hello ${ a + b } world ${ a * b }`;
       // 等同于
       tag(['Hello ', ' world ', ''], 15, 50);
+      // 相当于通过split 分割
     ```
+### 新增方法
+
+1. String.raw() 原生的 String 对象，提供了一个raw()方法。它会将所有变量替换，而且对斜杠进行转义
+
+2. includes(), startsWidths(), endsWidths()
+   + includes()：返回布尔值，表示是否找到了参数字符串。
+   + startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。
+   + endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。
+这三个方法都支持第二个参数，表示开始搜索的位置
+
+3. repeat() 方法返回一个新字符串，表示将原字符串重复n次。
+
+4. padStart(), padEnd() 符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全
+   ```
+    // 第一个参数是字符串补全生效的最大长度，第二个参数是用来补全的字符串。
+    'x'.padEnd(5, 'ab') // 'xabab'
+    // 原字符串的长度，等于或大于最大长度，则字符串补全不生效，返回原字符串
+    'xxx'.padStart(2, 'ab') // 'xxx'
+    // 如果用来补全的字符串与原字符串，两者的长度之和超过了最大长度，则会截去超出位数的补全字符串。
+    '12'.padStart(10, 'YYYY-MM-DD') // "YYYY-MM-12"
+    // 如果省略第二个参数，默认使用空格补全长度。
+    'x'.padStart(4) // '   x'
+   ```
+
+5. trimStart()，trimEnd() 它们的行为与trim()一致，trimStart()消除字符串头部的空格，trimEnd()消除尾部的空格。它们返回的都是新字符串，不会修改原始字符串。
+
+## 数值的扩展
+
+1. 二进制用 0b || 0B 八进制用 0o || 0O 如果要转为十进制 使用Number 方法
+
+2. Number.isFinite() Number.isNaN()
+  
+   **它们与传统的全局方法isFinite()和isNaN()的区别在于，传统方法先调用Number()将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效**
+   + Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。
+   + Number.isNaN()用来检查一个值是否为NaN。
+
+3. Number.parseInt(), Number.parseFloat() ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。
+
+4. Number.isInteger() 用来判断一个数值是否为整数。如果参数不是数值，Number.isInteger返回false。
+
+5. Number.EPSILON 新增一个极小的常量Number.EPSILON
+
+6. 安全整数跟 Number.isSafeInteger() 
+
+    JavaScript 能够准确表示的整数范围在-2^53到2^53之间（不含两个端点），超过这个范围，无法精确表示这个值。
+   ES6 引入了Number.MAX_SAFE_INTEGER和Number.MIN_SAFE_INTEGER这两个常量，用来表示这个范围的上下限。
 
 
 <div class="grid-layout">
@@ -144,6 +192,6 @@ span {
   font-weight: 600
 }
 pre {
-  background: #F2CD96
+  background: #EFF4F7
 }
 </style>
