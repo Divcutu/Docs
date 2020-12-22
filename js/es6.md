@@ -9,8 +9,7 @@
 
 #### 数组
 
-  ```
-
+  ``` JavaScript
     let [ , , third] = ["foo", "bar", "baz"];
     third // "baz"
 
@@ -31,7 +30,7 @@
 3. ES6 内部使用严格相等运算符（===），判断一个位置是否有值。所以，只有当一个数组成员严格等于undefined，默认值才会生效。
 
 4. 如果默认值是一个表达式，那么这个表达式是惰性求值的，即只有在用到的时候，才会求值。
-    ```
+    ``` JavaScript
       function f() {
         console.log('aaa');
       }
@@ -41,7 +40,7 @@
 
 #### 对象
 
-```
+``` JavaScript
   let obj = {};
   let arr = [];
 
@@ -49,17 +48,21 @@
 
   obj // {prop:123}
   arr // [true]
+
+  let {a, ...obj} = {prop: 555, a:10}
+  obj // {prop: 555}
+  a // 10
 ```
 
 1.  对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者
-    ```
+    ``` JavaScript
       let { foo: baz } = { foo: 'aaa', bar: 'bbb' };
       baz // "aaa"
       foo // error: foo is not defined
     ```
 2. 要将一个已经声明的变量用于解构赋值，必须非常小心。
 因为 JavaScript 引擎会将{x}理解成一个代码块
-    ```
+    ``` JavaScript
       // 错误的写法
       let x;
       {x} = {x: 1};
@@ -77,7 +80,7 @@
 
 #### 函数参数的解构赋值 
 
-```
+``` JavaScript
   function move({x = 0, y = 0} = {}) {
     return [x, y];
   }
@@ -88,7 +91,7 @@
   move(); // [0, 0]
 ```
 上面代码中，函数move的参数是一个对象，通过对这个对象进行解构，得到变量x和y的值。如果解构失败，x和y等于默认值。
-```
+``` JavaScript
   function move({x, y} = { x: 0, y: 0 }) {
     return [x, y];
   }
@@ -105,7 +108,7 @@
 1. ES6 为字符串添加了遍历器接口(Iterator)
 2. 模板字符串可以嵌套、可以调用函数、若不是字符串则转为字符串
 3. 模板字符串可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串。这被称为“标签模板”功能
-    ```
+    ``` JavaScript
       alert`hello`
       // 等同于
       alert(['hello'])
@@ -131,7 +134,7 @@
 3. repeat() 方法返回一个新字符串，表示将原字符串重复n次。
 
 4. padStart(), padEnd() 符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全
-   ```
+   ``` JavaScript
     // 第一个参数是字符串补全生效的最大长度，第二个参数是用来补全的字符串。
     'x'.padEnd(5, 'ab') // 'xabab'
     // 原字符串的长度，等于或大于最大长度，则字符串补全不生效，返回原字符串
@@ -182,7 +185,7 @@
 4. Math.clz32() Math.clz32()方法将参数转为 32 位无符号整数的形式，然后返回这个 32 位值里面有多少个前导 0
    
    **左移运算符（<<）与Math.clz32方法直接相关。**
-   ```
+   ``` JavaScript
     Math.clz32(0) // 32
     Math.clz32(1) // 31
     Math.clz32(1 << 1) // 30
@@ -192,7 +195,7 @@
 
 5. Math.imul() Math.imul方法返回两个数以 32 位带符号整数形式相乘的结果，返回的也是一个 32 位的带符号整数。
 
-   ```
+   ``` JavaScript
     (0x7fffffff * 0x7fffffff)|0 // 0
 
     上面这个乘法算式，返回结果为 0。但是由于这两个二进制数的最低位都是 1，所以这个结果肯定是不正确的，因为根据二进制乘法，计算结果的二进制最低位应该也是 1。这个错误就是因为它们的乘积超过了 2 的 53 次方，JavaScript 无法保存额外的精度，就把低位的值都变成了 0。Math.imul方法可以返回正确的值 1
@@ -206,7 +209,7 @@
 
    如果参数不是数值，Math.hypot方法会将其转为数值。只要有一个参数无法转为数值，就会返回 NaN。
 
-   ```
+   ``` JavaScript
     Math.hypot(3, 4);        // 5
     Math.hypot(3, 4, 5);     // 7.0710678118654755
     Math.hypot();            // 0
@@ -234,7 +237,7 @@
 10. **指数运算** ES2016 新增了一个指数运算符（**）。
    
    这个运算符的一个特点是右结合，而不是常见的左结合。多个指数运算符连用时，是从最右边开始计算的。
-   ```
+   ``` JavaScript
     // 相当于 2 ** (3 ** 2)
     2 ** 3 ** 2
 
@@ -259,7 +262,7 @@
   
   ** typeof运算符对于 BigInt 类型的数据返回bigint。 **
 
-  ```
+  ``` JavaScript
     0b1101n // 二进制
     0o777n // 八进制
     0xFFn // 十六进制
@@ -277,7 +280,7 @@ JavaScript 原生提供BigInt对象，可以用作构造函数生成 BigInt 类�
 
 ** BigInt()构造函数必须有参数，而且参数必须可以正常转为数值，下面的用法都会报错。 **
 
-  ```
+  ``` JavaScript
     new BigInt() // TypeError
     BigInt(undefined) //TypeError
     BigInt(null) // TypeError
@@ -313,7 +316,7 @@ JavaScript 原生提供BigInt对象，可以用作构造函数生成 BigInt 类�
 
     ** 取反运算符（!）也可以将 BigInt 转为布尔值 **
 
-    ```
+    ``` JavaScript
       Boolean(0n) // false
       Boolean(1n) // true
       Number(1n)  // 1
@@ -331,7 +334,7 @@ JavaScript 原生提供BigInt对象，可以用作构造函数生成 BigInt 类�
 
    **  BigInt 不能与普通数值进行混合运算。 ** 因为无论返回的是 BigInt 或 Number，都会导致丢失精度信息
    同样的原因，如果一个标准库函数的参数预期是 Number 类型，但是得到的是一个 BigInt，就会报错。
-   ```
+   ``` JavaScript
     // 错误的写法
     Math.sqrt(4n) // 报错
 
@@ -340,13 +343,222 @@ JavaScript 原生提供BigInt对象，可以用作构造函数生成 BigInt 类�
    ```
 
    ** 比较运算符（比如>）和相等运算符（==）允许 BigInt 与其他类型的值混合计算，因为这样做不会损失精度。**
-   ```
+   ``` JavaScript
     0n < 1 // true
     0n < true // true
     0n == 0 // true
     0n == false // true
     0n === 0 // false
    ```
+
+## 函数的扩展
+
+1. 函数可以使用默认值
+
+    ** 参数默认值不是传值的，而是每次都重新计算默认值表达式的值。也就是说，参数默认值是惰性求值的。 **
+    ``` JavaScript
+      let x = 99;
+      function foo(p = x + 1) {
+        console.log(p);
+      }
+
+      foo() // 100
+
+      x = 100;
+      foo() // 101
+
+      // 写法一
+      function m1({x = 0, y = 0} = {}) {
+        return [x, y];
+      }
+
+      // 写法二
+      function m2({x, y} = { x: 0, y: 0 }) {
+        return [x, y];
+      }
+
+      // 函数没有参数的情况
+      m1() // [0, 0]
+      m2() // [0, 0]
+
+      // x 和 y 都有值的情况
+      m1({x: 3, y: 8}) // [3, 8]
+      m2({x: 3, y: 8}) // [3, 8]
+
+      // x 有值，y 无值的情况
+      m1({x: 3}) // [3, 0]
+      m2({x: 3}) // [3, undefined]
+
+      // x 和 y 都无值的情况
+      m1({}) // [0, 0];
+      m2({}) // [undefined, undefined]
+
+      m1({z: 3}) // [0, 0]
+      m2({z: 3}) // [undefined, undefined]
+    ```
+
+2. 函数的length属性  指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。也就是说，指定了默认值后，length属性将失真.
+    
+   ** 如果设置了默认值的参数不是尾参数，那么length属性也不再计入后面的参数了。 **
+
+3. 函数参数的作用域
+
+   ** 一旦设置了参数的默认值，函数进行声明初始化时，参数会形成一个单独的作用域（context）。等到初始化结束，这个作用域就会消失。这种语法行为，在不设置参数默认值时，是不会出现的。 **
+   ``` JavaScript
+    var x = 1;
+    function foo(x = x) {
+      // ...
+    }
+    foo() // ReferenceError: x is not define
+    参数x = x形成一个单独作用域。实际执行的是let x = x，由于暂时性死区的原因，这行代码会报错”x 未定义“
+   ```
+4. rest 参数 rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
+
+  ``` JavaScript
+    function add(...values) {
+      let sum = 0;
+
+      for (var val of values) {
+        sum += val;
+      }
+
+      return sum;
+    }
+
+    add(2, 5, 3) // 10
+  ```
+  ** rest 参数之后不能再有其他参数（即只能是最后一个参数），否则会报错, 函数的length属性，不包括 rest 参数 **
+
+5. 严格模式 从 ES5 开始，函数内部可以设定为严格模式 ES2016 做了一点修改，规定只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错
+
+  ** 这样规定的原因是，函数内部的严格模式，同时适用于函数体和函数参数。但是，函数执行的时候，先执行函数参数，然后再执行函数体。这样就有一个不合理的地方，只有从函数体之中，才能知道参数是否应该以严格模式执行，但是参数却应该先于函数体执行。 **
+
+    + 第一种是设定全局性的严格模式，这是合法的
+      ``` JavaScript
+        'use strict';
+
+        function doSomething(a, b = a) {
+          // code
+        }
+
+      ```
+    + 第二种是把函数包在一个无参数的立即执行函数里面。
+    ``` JavaScript
+      const doSomething = (function () {
+        'use strict';
+        return function(value = 42) {
+          return value;
+        };
+      }());
+    ```
+
+### 箭头函数
+
+1. 如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回
+  ``` JavaScript
+    var sum = (num1, num2) => { return num1 + num2; }
+  ```
+  
+2. 由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号，否则会报错
+  ``` JavaScript
+    // 报错
+    let getTempItem = id => { id: id, name: "Temp" };
+
+    // 不报错
+    let getTempItem = id => ({ id: id, name: "Temp" });
+  ```
+
+3. 箭头函数可以与变量解构,rest 参数 结合使用
+  ``` javascript
+
+    const full = ({ first, last }) => first + ' ' + last;
+
+    // 等同于
+    function full(person) {
+      return person.first + ' ' + person.last;
+    }
+
+    const numbers = (...nums) => nums;
+
+    numbers(1, 2, 3, 4, 5)
+    // [1,2,3,4,5]
+
+    const headAndTail = (head, ...tail) => [head, tail];
+
+    headAndTail(1, 2, 3, 4, 5)
+    // [1,[2,3,4,5]]
+  ```
+
+### 注意点
+
+1. 函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+2. 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误.
+3. 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+4. 不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+
+  ``` javascript
+    function Timer() {
+      this.s1 = 0;
+      this.s2 = 0;
+      // 箭头函数
+      setInterval(() => this.s1++, 1000);
+      // 普通函数
+      setInterval(function () {
+        this.s2++;
+      }, 1000);
+    }
+
+    var timer = new Timer();
+
+    setTimeout(() => console.log('s1: ', timer.s1), 3100);
+    setTimeout(() => console.log('s2: ', timer.s2), 3100);
+    // s1: 3
+    // s2: 0
+  ```
+  上面代码中，Timer函数内部设置了两个定时器，分别使用了箭头函数和普通函数。前者的this绑定定义时所在的作用域（即Timer函数），后者的this指向运行时所在的作用域（即全局对象）。所以，3100 毫秒之后，timer.s1被更新了 3 次，而timer.s2一次都没更新
+
+  箭头函数转成 ES5 的代码如下
+  ``` javascript
+    // ES6
+    function foo() {
+      setTimeout(() => {
+        console.log('id:', this.id);
+      }, 100);
+    }
+
+    // ES5
+    function foo() {
+      var _this = this;
+
+      setTimeout(function () {
+        console.log('id:', _this.id);
+      }, 100);
+    }
+  ```
+  ** 由于箭头函数没有自己的this，所以当然也就不能用call()、apply()、bind()这些方法去改变this的指向 **
+
+### 不适用场合
+
+1. 定义对象的方法，且该方法内部包括this
+  ``` javascript
+    const cat = {
+      lives: 9,
+      jumps: () => {
+        this.lives--;
+      }
+    }
+  ```
+  cat.jumps()方法是一个箭头函数，这是错误的。调用cat.jumps()时，如果是普通函数，该方法内部的this指向cat；如果写成上面那样的箭头函数，使得this指向全局对象，因此不会得到预期结果。这是因为对象不构成单独的作用域，导致jumps箭头函数定义时的作用域就是全局作用域。
+
+2. 需要动态this的时候，也不应使用箭头函数
+  ``` javascript
+    var button = document.getElementById('press');
+    button.addEventListener('click', () => {
+      this.classList.toggle('on');
+    });
+  ```
+  上面代码运行时，点击按钮会报错，因为button的监听函数是一个箭头函数，导致里面的this就是全局对象。如果改成普通函数，this就会动态指向被点击的按钮对象。
+
 
 <div class="grid-layout">
   <span style="color:red" class="text">aaaa</span>
@@ -356,9 +568,9 @@ JavaScript 原生提供BigInt对象，可以用作构造函数生成 BigInt 类�
 </div>
 <style>
 .text {color: #3333 !important}
-span {
+/* span {
   animation: xx 3s ease 0s infinite
-}
+} */
 .grid-layout{
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -369,11 +581,11 @@ span {
   50% {opacity: 1}
   100% {opacity: 0}
 }
-.title {
+/* .title {
   text-align: center;
   font-weight: 600
-}
-pre {
+} */
+/* pre {
   background: #EFF4F7
 }
 p {
@@ -381,5 +593,5 @@ p {
 }
 li p {
   text-indent: 0;
-}
+} */
 </style>
