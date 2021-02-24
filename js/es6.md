@@ -775,3 +775,170 @@ JavaScript 原生提供BigInt对象，可以用作构造函数生成 BigInt 类�
       + `Array.from`、扩展运算符（`...`）、`entries()`、`keys()`、`values()`、`find()`和`findIndex()`方法会将数组的空位，转为`undefined`
       + `for...of`循环也会遍历空位
       + `fill()`会将空位视为正常的数组位置, `copyWithin()`会连空位一起拷贝
+
+## 对象的扩展
+
+1. 属性名表达式
+    ES6 允许字面量定义对象时，用方法二（表达式）作为对象的属性名，即把表达式放在方括号内。还可以用于定义方法名.
+    ```js
+      let propKey = 'foo';
+      let obj = {
+        [propKey]: true,
+        ['a' + 'bc']: 123
+      };
+    ```
+    注意： 属性名表达式与简洁表示法，不能同时使用，会报错
+
+2. 属性的可枚举与遍历 
+    + 对象的每个属性都有一个描述对象（`Descriptor`），用来控制该属性的行为。`Object.getOwnPropertyDescriptor`方法可以获取该属性的描述对象。
+      ```js
+        let obj = { foo: 123 };
+        Object.getOwnPropertyDescriptor(obj, 'foo')
+        //  {
+        //    value: 123,
+        //    writable: true,
+        //    enumerable: true,
+        //    configurable: true
+        //  }
+      ```
+      描述对象的`enumerable`属性，称为“可枚举性”，如果该属性为`false`，就表示某些操作会忽略当前属性。
+      目前，有四个操作会忽略`enumerable`为`false`的属性
+        - `for...in`循环：只遍历对象自身的和继承的可枚举的属性。
+        - `Object.keys()`：返回对象自身的所有可枚举的属性的键名。
+        - `JSON.stringify()`：只串行化对象自身的可枚举的属性。
+        - `Object.assign()`： 忽略enumerable为false的属性，只拷贝对象自身的可枚举的属性。
+      另外，ES6 规定，所有 `Class` 的原型的方法都是不可枚举的。
+    
+3. 属性的遍历
+  ES6 一共有 5 种方法可以遍历对象的属性 注意 是属性
+  + `for...in`循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。
+  + `Object.keys`返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。
+  + `Object.getOwnPropertyNames`返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。
+  + `Object.getOwnPropertySymbols`返回一个数组，包含对象自身的所有 Symbol 属性的键名。
+  + `Reflect.ownKeys`返回一个数组，包含对象自身的（不含继承的）所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。
+
+    - 首先遍历所有数值键，按照数值升序排列。
+    - 其次遍历所有字符串键，按照加入时间升序排列。
+    - 最后遍历所有 Symbol 键，按照加入时间升序排列
+
+4. `super` 关键字 指向当前对象的原型对象
+  + `Object.setPrototypeOf(obj, proto)` 设置对象的原型对象 `Object.getPrototypeOf(obj)` 获取对象的原型对象
+    注意: `super` 关键字表示原型对象时，只能用在对象的方法之中，用在其他地方都会报错。
+    ```js
+      // 报错
+      const obj = {
+        foo: super.foo
+      }
+
+      // 报错
+      const obj = {
+        foo: () => super.foo
+      }
+
+      // 报错
+      const obj = {
+        foo: function () {
+          return super.foo
+        }
+      }
+    ```
+5. 解构赋值
+  对象的解构赋值用于从一个对象取值，相当于将目标对象自身的所有可遍历的（enumerable）、但尚未被读取的属性，分配到指定的对象上面。所有的键和它们的值，都会拷贝到新对象上面。
+  + 由于解构赋值要求等号右边是一个对象，所以如果等号右边是`undefined`或`null`，就会报错，因为它们无法转为对象
+  + 解构赋值必须是最后一个参数，否则会报错
+  + 扩展运算符的解构赋值，不能复制继承自原型对象的属性
+
+6. 链判断运算符 `?.` 直接在链式调用的时候判断，左侧的对象是否为`null`或`undefined`。如果是的，就不再往下运算，而是返回`undefined`
+  + `obj?.prop` // 对象属性
+  + `obj?.[expr]` // 同上
+  + `func?.(...args)` // 函数或对象方法的调用
+
+  + `?.`运算符相当于一种短路机制，只要不满足条件，就不再往下执行。
+    ```js
+      a?.[++x]
+      // 等同于
+      a == null ? undefined : a[++x]
+    ```
+  + `delete` 运算符
+    ```js
+      delete a?.b
+      // 等同于
+      a == null ? undefined : delete a.b
+    ```
+7. `null` 判断运算符 `??` 它的行为类似`||`，但是只有运算符左侧的值为`null`或`undefined`时，才会返回右侧的值。
+
+## 对象的新增方法
+
+1. `Object.is()`
+    比较两个值是否相等，只有两个运算符：相等运算符（`==`）和严格相等运算符（`===`）。它们都有缺点，前者会自动转换数据类型，后者的`NaN`不等于自身，以及`+0`等于`-0`
+    `Object.is`它用来比较两个值是否严格相等，与严格比较运算符（===）的行为基本一致。
+    + 不同之处只有两个：一是`+0`不等于`-0`，二是`NaN`等于自身。
+
+2. `Object.assign()` 用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+    `Object.assign()`方法的第一个参数是目标对象，后面的参数都是源对象 是浅拷贝
+    常见用途
+    + 为对象添加属性
+      ```js
+        class Point {
+          constructor(x, y) {
+            Object.assign(this, {x, y});
+          }
+        }
+      ```
+    + 为对象添加方法
+      ```js
+        Object.assign(SomeClass.prototype, {
+          someMethod(arg1, arg2) {
+            ···
+          },
+          anotherMethod() {
+            ···
+          }
+        });
+
+        // 等同于下面的写法
+        SomeClass.prototype.someMethod = function (arg1, arg2) {
+          ···
+        };
+        SomeClass.prototype.anotherMethod = function () {
+          ···
+        };
+      ```
+    + 克隆对象、 合并多个对象、 为属性指定默认值
+3. `Object.getOwnPropertyDescriptors()`  返回指定对象所有自身属性（非继承属性）的描述对象。 返回一个对象，所有原对象的属性名都是该对象的属性名，对应的属性值就是该属性的描述对象。看阮一峰吧。
+
+
+4. `_proto_`属性 用来读取或设置当前对象的原型对象(`prototype`)
+
+    由于浏览器广泛支持，才被加入了 ES6。标准明确规定，只有浏览器必须部署这个属性，其他运行环境不一定需要部署，而且新的代码最好认为这个属性是不存在的。因此，无论从语义的角度，还是从兼容性的角度，都不要使用这个属性
+    而是使用 `Object.getPrototype()`读操作 `Object.setPrototype()`写操作 `Object.create()`生成操作
+    `_proto_`原理 调用的是`Object.prototype.__proto__`
+    ```js
+      Object.defineProperty(Object.prototype, '__proto__', {
+        get() {
+          let _thisObj = Object(this);
+          return Object.getPrototypeOf(_thisObj);
+        },
+        set(proto) {
+          if (this === undefined || this === null) {
+            throw new TypeError();
+          }
+          if (!isObject(this)) {
+            return undefined;
+          }
+          if (!isObject(proto)) {
+            return undefined;
+          }
+          let status = Reflect.setPrototypeOf(this, proto);
+          if (!status) {
+            throw new TypeError();
+          }
+        },
+      });
+
+      function isObject(value) {
+        return Object(value) === value;
+      }
+    ```
+
+
