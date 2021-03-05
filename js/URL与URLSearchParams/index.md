@@ -27,7 +27,7 @@
     console.log(params.toString());
   ```
 
-    **注意: 在 Chrome 和 Node.js 上可以获得我们预期的结果，而在 FireFox 和 Polyfill 类库上则不支持 JSON 的构造函数**
+  **注意: 在 Chrome 和 Node.js 上可以获得我们预期的结果，而在 FireFox 和 Polyfill 类库上则不支持 JSON 的构造函数**
 
 #### 常用方法
 
@@ -79,7 +79,7 @@
     let url = new URL('abc', base)
   ```
 
-   **注意: 如果参数值无法组合成完整URL地址，则会报TypeError错误**
+  **注意: 如果参数值无法组合成完整URL地址，则会报TypeError错误**
 
 #### 属性
 
