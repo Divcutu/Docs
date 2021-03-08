@@ -55,18 +55,18 @@ observer.observe(document.querySelector('ul').querySelectorAll('li')[0], { attri
 // document.querySelector('#btn').click()
 
 
-async function foo() {
-  let result = await new Promise((resolve, reject) => {
-    // return
-    // resolve(1)
-    reject(1)
-  }).catch(e => {
-    console.log(e)
-    return
-  })
-  console.log('222')
-  console.log(result)
-}
-foo()
+// async function foo() {
+//   let result = await new Promise((resolve, reject) => {
+//     // return
+//     // resolve(1)
+//     reject(1)
+//   }).catch(e => {
+//     console.log(e)
+//     return
+//   })
+//   console.log('222')
+//   console.log(result)
+// }
+// foo()
 
 const worker = new Worker('localhost:/test.js')

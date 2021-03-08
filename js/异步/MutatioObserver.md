@@ -15,5 +15,49 @@
 
 3. 它即可以观察发生在`DOM`节点的所有变动，也可以观察某一类变动
 
-#### 
+#### 使用方法
 
+  ```js
+    // 初始化实例
+    var observer = new MutationObserver(callback);
+    // 选择需要观察的dom元素
+    var article = document.querySelector('article');
+    // 配置观察的变动类型
+    var options = {
+        'childList': true,
+        'arrtibutes': true
+    };
+    // 开始观察
+    observer.observer(article, options)
+  ```
+
+1. `MutationObserver`所观察的`DOM`变动（即上面代码的`option`对象），包含以下类型
+    + `childList`: 子元素变动
+    + `attributes`: 属性的变动
+    + `characterData`: 节点内容或者节点文本的变动
+    + `subtree`: 所有下属节点（包括子节点和子节点的子节点）的变动
+
+    **注意：不能单独观察`subtree`变动，必须同时指定`childList`、`attributes`和`characterData`中的一种或多种**
+
+2. 其余属性
+    + `attributeOldValue`: 值为`true`或者为`false`。如果为`true`，则表示需要记录变动前的属性值
+    + `characterDataOldValue`: 值为`true`或者为`false`。如果为`true`则表示需要记录变动前的数据值
+    + `attributesFilter`: 值为一个数组，表示需要观察的特定属性（比如`['class', 'str']`）
+
+#### 对象方法
+
+1. `observer.disconnect()` 方法用来停止观察。发生相应变动时，不再调用回调函数。
+
+2. `observer.takeRecord()` 方法用来清除变动记录，即不再处理未处理的变动
+
+#### MutationRecord 对象
+
+`MutationRecord`对象包含了`DOM`的相关信息，有如下属性：
++ `type`: 观察的变动类型（`attribute`、`characterData`或者`childList`）。
++ `target`: 发生变动的`DOM`对象。
++ `addedNodes`: 新增的`DOM`对象。
++ `removeNodes`: 删除的`DOM`对象。
++ `previousSibling`: 前一个同级的`DOM`对象，如果没有则返回`null`。
++ `nextSibling`: 下一个同级的`DOM`对象，如果没有就返回`null`。
++ `attributeName`: 发生变动的属性。如果设置了`attributeFilter`，则只返回预先指定的属性。
++ `oldValue`: 变动前的值。这个属性只对`attribute`和`characterData`变动有效，如果发生`childList`变动，则返回`null`。
