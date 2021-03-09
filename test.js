@@ -14,11 +14,11 @@
 
 // console.log(s.toString())
 
-let observer = new MutationObserver((mutations) => {
-  console.log(mutations)
-})
+// let observer = new MutationObserver((mutations) => {
+//   console.log(mutations)
+// })
 
-observer.observe(document.querySelector('ul').querySelectorAll('li')[0], { attributes: true, childList: true, characterData: true })
+// observer.observe(document.querySelector('ul').querySelectorAll('li')[0], { attributes: true, childList: true, characterData: true })
 
 // setTimeout(() => {
   // let el = document.createElement('li')
@@ -69,4 +69,37 @@ observer.observe(document.querySelector('ul').querySelectorAll('li')[0], { attri
 // }
 // foo()
 
-const worker = new Worker('localhost:/test.js')
+// const worker = new Worker('localhost:/test.js')
+// 实例化
+var messageChannel = new MessageChannel()
+
+let {port1, port2} = messageChannel
+port1.onmessage = message => {
+  console.log('port1收到来自port2的数据' , message)
+}
+port2.onmessage = message => {
+  console.log('port2收到来自port1的数据', message)
+}
+
+
+setTimeout(() => {
+  console.log('发送数据')
+  port1.postMessage(demo)
+  port2.postMessage('bbbbbbbbbbb')
+}, 5000)
+
+// console.log(messageChannel)
+// let demo2 = {a: 'aaaaa'}
+let demo = {
+  a:1,
+  // b: function() {this.a = 10},
+  // c() {
+  //   return this.a
+  // },
+  d: undefined,
+  f: null,
+}
+
+// let JSON_demo = JSON.stringify(demo)
+// console.log(JSON_demo)
+// console.log(JSON.parse(JSON_demo))

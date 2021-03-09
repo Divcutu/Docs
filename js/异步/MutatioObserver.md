@@ -1,4 +1,6 @@
- ### MutationObserved
+ ### MutationObserved 微任务
+
+**注意: 只在浏览器环境有效，node中无效。**
 
 `Mutation Observer`（变动观察器）是监视`DOM`变动的接口。当DOM对象树发生任何变动时，`Mutation Observer`会得到通知
 
