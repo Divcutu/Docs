@@ -245,4 +245,45 @@ JS高程中有提到，`JS`引擎会对`setInterval`进行优化，如果当前�
 
 ### 微任务(`microtask`)与宏任务(`macrotask`)
 
-https://segmentfault.com/a/1190000012925872
+JS中分为两种任务类型：`macrotask`和`microtask`，在`ECMAScript`中，`microtask`称为`jobs`，`macrotask`可称为`task`
+
+#### 介绍
+
+1. `macrotask`（又称之为宏任务）可以理解是每次执行栈执行的代码就是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）
+
+    + 主代码块，`setTimeout`，`setInterval`等（可以看到，事件队列中的每一个事件都是一个`macrotask`）
+    + 每一个`task`会从头到尾将这个任务执行完毕，不会执行其它
+    + 浏览器为了能够使得`JS`内部`task`与`DOM`任务能够有序的执行，会在一个`task`执行结束后，在下一个 `task` 执行开始前，对页面进行重新渲染
+        > （`task->渲染->task->...`）
+
+2. `microtask`（又称为微任务），可以理解是在当前 `task` 执行结束后立即执行的任务
+
+    + `Promise`，`process.nextTick`等
+    + 也就是说，在当前`task`任务后，下一个`task`之前，**在渲染之前**
+    + 所以它的响应速度相比`setTimeout`（`setTimeout`是`task`）会更快，因为无需等渲染
+
+补充： 在`node`环境下，`process.nextTick`的优先级高于`Promise`
+
+#### 形成
+
+
+1. `macrotask`中的事件都是放在一个事件队列中的，而这个队列由**事件触发线程**维护
+
+2. `microtask`中的所有微任务都是添加到微任务队列（`Job Queues`）中，等待当前`macrotask`执行完毕后执行，而这个队列由**JS引擎线程**维护
+
+总结：
+
+1. 执行一个宏任务（栈中没有就从事件队列中获取）
+
+2. 执行过程中如果遇到微任务，就将它添加到微任务的任务队列中
+
+3. 宏任务执行完毕后，立即执行当前微任务队列中的所有微任务（依次执行）
+
+4. 当前宏任务执行完毕，开始检查渲染，然后`GUI`线程接管渲染
+
+5. 渲染完毕后，`JS`线程继续接管，开始下一个宏任务（从事件队列中获取）
+
+![事件循环](../assets/macrotast.png)
+
+
+[原地址](https://segmentfault.com/a/1190000012925872)
