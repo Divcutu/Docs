@@ -50,8 +50,19 @@
 
 无论是`DOM`还是`CSSOM`，都是要经过`Bytes→characters→tokens→nodes→object model`这个过程。
 
+当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点
+
 ![render-2](../assets/render-2.png)
 
+#### 构建CSSOM树
+
+浏览器解析`CSS`文件并生成`CSSOM`，每个`CSS`文件都被分析成一个`StyleSheet`对象，每个对象都包含`CSS`规则。`CSS`规则对象包含对应于`CSS`语法的选择器和声明对象以及其他对象
+
+1. `CSS`解析可以与`DOM`解析同时进行。
+
+2. `CSS`解析与`script`的执行互斥 。
+
+3. 在`Webkit`内核中进行了`script`执行优化，只有在`JS`访问`CSS`时才会发生互斥。
 
 #### 重绘与重排
 
