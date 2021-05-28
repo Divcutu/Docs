@@ -27,24 +27,24 @@
   //   console.log(this)
   //   el.innerHTML = ++num
   // })
-  el.addEventListener('mousemove', throttle(()=>{
+  el.addEventListener('mousemove', debounce(function (){
     console.log(3,this)
     el.innerHTML = ++num
   }, 500))
 
   // 防抖 debounce 
   // 只执行最后一次
-  // function debounce(func, wait) {
-  //   let timer
-  //   console.log(1, this)
-  //   return function (...args) {
-  //     console.log(2, this)
-  //     timer && clearTimeout(timer)
-  //     timer = setTimeout(() => {
-  //       func(...args)
-  //     }, wait)
-  //   }
-  // }
+  function debounce(func, wait) {
+    let timer
+    console.log(1, this)
+    return function (...args) {
+      console.log(2, this)
+      timer && clearTimeout(timer)
+      timer = setTimeout(() => {
+        func(...args)
+      }, wait)
+    }
+  }
 
   // 防抖 只执行最开始一次
   // function debounce(func, wait){
@@ -81,16 +81,16 @@
   // }
 
   // 定时器版
-  function throttle(func, wait) {
-    let timer
-    return function(...args) {
-      if (!timer) {
-        timer = setTimeout(() => {
-          func(...args)
-          timer = null
-        }, wait)
-      }
-    }
-  }
+  // function throttle(func, wait) {
+  //   let timer
+  //   return function(...args) {
+  //     if (!timer) {
+  //       timer = setTimeout(() => {
+  //         func(...args)
+  //         timer = null
+  //       }, wait)
+  //     }
+  //   }
+  // }
 </script>
 </html>

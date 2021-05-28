@@ -43,39 +43,39 @@
 // obj.a = 10
 // console.log(obj.a)
 
-function Element(tagName, props, children) {
+// function Element(tagName, props, children) {
   // 若当前环境变量不属于 Element 实例则返回
-  if (!(this instanceof Element)) {
-    return new Element(tagName, props, children);
-  }
+//   if (!(this instanceof Element)) {
+//     return new Element(tagName, props, children);
+//   }
 
-  this.tagName = tagName;
-  this.props = props || {};
-  this.children = children || [];
-  this.key = props ? props.key : undefined
+//   this.tagName = tagName;
+//   this.props = props || {};
+//   this.children = children || [];
+//   this.key = props ? props.key : undefined
 
-  let count = 0;
-  this.children.forEacn(child => {
-    if (child instanceof Element) {
-      count += child.count;
-    }
-    count++ ;
-  })
-  this.count = count;
-}
+//   let count = 0;
+//   this.children.forEacn(child => {
+//     if (child instanceof Element) {
+//       count += child.count;
+//     }
+//     count++ ;
+//   })
+//   this.count = count;
+// }
 
-const tree = Element('div', { id: 'virtual-container' }, [
-  Element('p', {}, ['Virtual DOM']),
-  Element('div', {}, ['before update']),
-  Element('ul', {}, [
-    Element('li', { class: 'item' }, ['item 1']),
-    Element('li', { class: 'item' }, ['item 2']),
-    Element('li', { class: 'item' }, ['item 3']),
-  ]),
-])
+// const tree = Element('div', { id: 'virtual-container' }, [
+//   Element('p', {}, ['Virtual DOM']),
+//   Element('div', {}, ['before update']),
+//   Element('ul', {}, [
+//     Element('li', { class: 'item' }, ['item 1']),
+//     Element('li', { class: 'item' }, ['item 2']),
+//     Element('li', { class: 'item' }, ['item 3']),
+//   ]),
+// ])
 
-const root = tree.render();
-document.body.appendChild(root)
+// const root = tree.render();
+// document.body.appendChild(root)
 
 // Element.prototype.render = function() {
 //   const el = document.createElement(this.tagName);
@@ -83,3 +83,60 @@ document.body.appendChild(root)
 
 //   for ()
 // }
+
+// class A {
+//   static aa = function(){ console.log(this) };
+// }
+// A.aa = function(){console.log(this)}
+
+// A.aa()
+// let a = new A()
+// console.log(a)
+
+// class A {
+//   #a = {};
+// }
+// class B extends A {}
+
+// const a = new A()
+// const b = new B()
+
+// console.log(a.__proto__ === A.prototype)
+// console.log(b.__proto__ == B.prototype)
+// console.log(b.__proto__.__proto__ == A.prototype)
+// console.log(B.__proto__ === A)
+// console.log(B.prototype.__proto__ === A.prototype)
+
+let demo = [1,2,3,4,5,6,7,8,9,10]
+
+function sort(arr) {
+  let sortArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if ((i + 1) % 2 === 1) {
+      sortArr.push(arr.shift())
+    } else {
+      arr.push(arr.shift())
+      i--
+      console.log(arr)
+    }
+  }
+  console.log(sortArr)
+  return sortArr
+}
+sort(demo)
+
+
+// 正则
+// https://juejin.cn/post/6844903487155732494#heading-1
+
+// 渲染图层
+// https://blog.csdn.net/wangfeijiu/article/details/106880978
+
+// 设计模式
+// https://www.cnblogs.com/imwtr/p/9451129.html
+
+// createDocumentFragment
+//  single-spa
+// css选择器从右往左解析
+// vue 对数组的双向绑定
+// https://blog.csdn.net/weixin_30919571/article/details/96586784
