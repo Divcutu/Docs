@@ -1,18 +1,19 @@
 
 // const worker = new Worker('http://www.ruanyifeng.com/blog/stats.js')
 
-// document.addEventListener('DOMContentLoaded', (e) => {
-//   console.log(e)
-// })
-// document.addEventListener('DOMContentLoaded', (e) => {
-//   console.log(e)
-// }, true)
 // document.addEventListener('load', (e) => {
 //   console.log('load--capture', e)
 // }, true)
 // document.addEventListener('load', (e) => {
 //   console.log('load-bubbl', e)
 // }, true)
+// document.addEventListener('DOMContentLoaded', (e) => {
+//   console.log(e)
+// })
+// document.addEventListener('DOMContentLoaded', (e) => {
+//   console.log(e)
+// }, true)
+
 
 
 // let o1 = {}
@@ -107,24 +108,6 @@
 // console.log(B.__proto__ === A)
 // console.log(B.prototype.__proto__ === A.prototype)
 
-let demo = [1,2,3,4,5,6,7,8,9,10]
-
-function sort(arr) {
-  let sortArr = [];
-  for (let i = 0; i < arr.length; i++) {
-    if ((i + 1) % 2 === 1) {
-      sortArr.push(arr.shift())
-    } else {
-      arr.push(arr.shift())
-      i--
-      console.log(arr)
-    }
-  }
-  console.log(sortArr)
-  return sortArr
-}
-sort(demo)
-
 
 // 正则
 // https://juejin.cn/post/6844903487155732494#heading-1
@@ -136,7 +119,29 @@ sort(demo)
 // https://www.cnblogs.com/imwtr/p/9451129.html
 
 // createDocumentFragment
-//  single-spa
 // css选择器从右往左解析
 // vue 对数组的双向绑定
 // https://blog.csdn.net/weixin_30919571/article/details/96586784
+
+// const obj = {
+//   a: 1,
+//   func: function() {
+//     console.log(this)
+//   }
+// };
+// console.log((0, obj.func))
+// // (0, obj.func)();
+// console.log((1,2,3))
+
+// function func(data) {
+//   data.a = 1
+// }
+// let params = {}
+// func(params);
+// console.log(params);
+
+// let arr = [1,2,3,3,4];
+// for (let key in arr) {
+//   console.log(key, arr[key])
+// }
+
