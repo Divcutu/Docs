@@ -145,3 +145,31 @@
 //   console.log(key, arr[key])
 // }
 
+// let a  = {
+//   func: function(callback) {
+//     console.log(this);
+//     return function() {
+//       console.log(this, 00)
+//       callback();
+//     }
+//   }
+// }
+// function asd() {
+//   console.log(this, 11)
+// }
+
+// a.func(asd)()
+
+// class A {
+//   a;
+//   b;
+//   constructor() {
+//     a = 1;
+//   }
+//   static setb() {
+//     this.b = '11111'
+//   }
+// }
+
+// A.setb();
+// console.log(A.b)
