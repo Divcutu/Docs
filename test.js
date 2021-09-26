@@ -173,3 +173,83 @@
 
 // A.setb();
 // console.log(A.b)
+
+// function aaa() {
+//   setTimeout(() => {
+//     document.querySelector('ul').style.display = 'none';
+//   }, 0)
+//   setTimeout(() => {
+//     document.querySelector('ul').style.display = 'block';
+//   }, 0)
+// }
+
+// aaa();
+
+// function func(input) {
+//   let obj = {};
+
+//   function ret(object, curr = '') {
+//     for (let key in object) {
+//       if (typeof object[key] !== 'object') {
+//         obj[(curr ? curr + '.' : '') + key] = object[key]
+//       } else {
+//         ret(object[key], (curr ? curr + '.' : '') + key)
+//       }
+//     }
+//   }
+
+//   ret(input)
+  
+//   return obj
+// }
+
+// let a = {
+//   asd: {a:1},
+//   b:2,
+//   c: [1,2, {a:1}]
+// }
+
+// console.log(func(a))
+
+// var reverse = function(x) {
+//   let s = String(x);
+//   let char;
+//   let ret;
+//   if (s.startsWith('-') || s.startsWith('+')) {
+//       char = s.substr(0, 1);
+//       ret = s.substr(1).split('').reverse().join('');
+//   } else ret = s.split('').reverse().join('');
+
+//   if (char) ret = Number(char + ret);
+//   if (ret < (0 - (2 ** 31) - 1) || ret > (2 ** 31)) return 0
+//   return Number(ret)
+// };
+
+// console.log(reverse(123))
+
+var myAtoi = function(s) {
+  let index = 0;
+  let ret = '';
+  while(index >= 0 && index < s.length) {
+      if (s[index] == ' ') {
+
+      } else if ((s[index] === '+' || s[index] === '-') && !ret) {
+          ret += s[index]
+      } else if (Number(s[index]) || Number(s[index]) == 0) {
+          ret += s[index];
+      } else {
+          index = -10;
+      }
+      index++
+  }
+  console.log(ret)
+  ret = Number(ret);
+  if (Number.isNaN(ret)) return 0;
+  ret = Math.max(ret, -(2 ** 31));
+  console.log(ret)
+  ret = Math.min(ret, 2**31 - 1)
+  console.log(ret)
+  return ret
+};
+
+console.log(myAtoi("21474836460"))
