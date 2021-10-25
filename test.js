@@ -227,29 +227,246 @@
 
 // console.log(reverse(123))
 
-var myAtoi = function(s) {
-  let index = 0;
-  let ret = '';
-  while(index >= 0 && index < s.length) {
-      if (s[index] == ' ') {
+// var myAtoi = function(s) {
+//   let index = 0;
+//   let ret = '';
+//   while(index >= 0 && index < s.length) {
+//       if (s[index] == ' ') {
 
-      } else if ((s[index] === '+' || s[index] === '-') && !ret) {
-          ret += s[index]
-      } else if (Number(s[index]) || Number(s[index]) == 0) {
-          ret += s[index];
-      } else {
-          index = -10;
-      }
-      index++
-  }
-  console.log(ret)
-  ret = Number(ret);
-  if (Number.isNaN(ret)) return 0;
-  ret = Math.max(ret, -(2 ** 31));
-  console.log(ret)
-  ret = Math.min(ret, 2**31 - 1)
-  console.log(ret)
-  return ret
-};
+//       } else if ((s[index] === '+' || s[index] === '-') && !ret) {
+//           ret += s[index]
+//       } else if (Number(s[index]) || Number(s[index]) == 0) {
+//           ret += s[index];
+//       } else {
+//           index = -10;
+//       }
+//       index++
+//   }
+//   console.log(ret)
+//   ret = Number(ret);
+//   if (Number.isNaN(ret)) return 0;
+//   ret = Math.max(ret, -(2 ** 31));
+//   console.log(ret)
+//   ret = Math.min(ret, 2**31 - 1)
+//   console.log(ret)
+//   return ret
+// };
 
-console.log(myAtoi("21474836460"))
+// console.log(myAtoi("21474836460"))
+
+// async function async1() {
+//   console.log('async1 start');
+//   await async2();
+//   console.log('async1 end');
+// }
+
+// async function async2() {
+//   console.log('async2');
+// }
+
+// console.log('script start');
+
+// setTimeout(function() {
+//   console.log('setTimeout');
+// }, 0)
+
+// async1();
+
+// new Promise(function(resolve) {
+//   console.log('promise1');
+//   resolve();
+// }).then(function() {
+//   console.log('promise2');
+// });
+// console.log('script end');
+
+
+// let a = new Promise((resolve, reject) => {
+//   return 1
+//   resolve('22')
+// })
+// console.log(a)
+
+function _new(func, ...args) {
+  let obj = Object.create(func.prototype);
+  func.apply(obj, args);
+  return obj
+}
+
+// window.addEventListener('popstate', () => { console.log('popstate') })
+// setTimeout(() => {
+//   history.pushState({key: 1}, '', 'advance-css/发光按钮/index.html')
+// }, 3000)
+// 加油 杜玄祥！！！ 你可以的。 相信自己。 努力努力再努力！！！
+// window.addEventListener('hashchange', () => { console.log('hashchange') })
+// setTimeout(() => {
+//   location.hash = '#/aa'
+// }, 6000)
+
+// function max (originFuncs: Array<() => Promise>, max: number): Promise {
+// }
+
+// 最大重试封装。
+// 已知函数 originFunc 执行返回 Promise 对象，返回值可能会 resolve 可能会 reject。
+// 封装最大重试函数，支持在传入参数的情况下，遇到 reject 就重试，直到限制次数。
+// 返回首次 resolve 的值 或者 最大重试之后的返回值。
+
+// function retry (originFunc: () => Promise, times: number): Promise {
+// }
+
+
+/**
+* 设计和实现一个 LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和写入数据 put 。
+* 获取数据 get(key) - 如果密钥 ( key ) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1 。
+* 写入数据 add(key, value) - 如果密钥不存在，则写入数据。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据，从而为新数据留出空间。
+*/
+
+
+// function LRU(max) {
+// 	this.max = max;
+// 	this.arr = new Array();
+// 	this.data = new Object();
+// }
+ 
+// LRU.prototype = {
+// get(key) {
+// 	if (this.data[key]) {
+// 		let index = this.arr.findIndex(val => val === key);
+// 		let value = this.arr.splice(index, 1)[0];
+// 		this.arr.push(value);
+// 		return this.data[key];
+// 	} else return -1;
+// },
+// add(key, value) {
+// 	if (this.arr.length === this.max) {
+// 		delete this.data[this.arr.shift()];
+// 	}
+// 	this.arr.push(key);
+// 	this.data[key] = value;
+// },
+// }
+// const lru = new LRU(5)
+// lru.add(1,1)
+// lru.add(2,2)
+// lru.add(3,3)
+// lru.add(4,4)
+// lru.get(1)
+// lru.add(5,5)
+// lru.get(3)
+// lru.add(6,6)
+
+// async function async1() {
+//   return new Promise((resolve) => {
+//     console.log(4)
+//     resolve(5)
+//   }).then(ret => console.log(ret))
+// }
+// let a = async1()
+// setTimeout(function () {
+//   console.log("1");
+// }, 0);
+// async function async1() {
+//   console.log("2");
+//   const data = await async2();
+//   console.log("3");
+//   return data;
+// }
+// async function async2() {
+//   return new Promise((resolve) => {
+//     console.log("4");
+//     resolve("async2的结果");
+//   }).then((data) => {
+//     console.log("5");
+//     return data;
+//   });
+// }
+// async1().then((data) => {
+//   console.log("6");
+//   console.log(data);
+// });
+// new Promise(function (resolve) {
+//   console.log("7");
+//   resolve()
+// }).then(function () {
+//   console.log("8");
+// });
+
+// let p = Promise.resolve(new Promise((resolve) => {
+//   console.log("4");
+//   resolve("async2的结果");
+// }).then((data) => {
+//   console.log("5");
+//   return data;
+// })).then(ret => console.log(ret))
+// console.log(p)
+
+// let pp = new Promise((resolve, reject) => {
+//   console.log(1)
+//   resolve(new Promise((resolve) => {
+//     console.log("4");
+//     // return 11
+//     resolve("async2的结果");
+//   }).then((data) => {
+//     console.log("5");
+//     return data;
+//   }))
+// }).then(ret => {
+//   console.log(2)
+//   console.log(ret)
+// })
+// setTimeout(() => {
+//   console.log(p)
+// }, 0)
+
+
+async function async1() {
+
+  console.log('async1 start');
+ 
+  await async2();
+ 
+  console.log('async1 end');
+ 
+ }
+ 
+ async function async2() {
+ 
+  console.log('async2 start');
+ 
+  return new Promise((resolve, reject) => {
+ 
+   resolve();
+ 
+   console.log('async2 promise');
+ 
+  })
+ 
+ }
+ 
+ console.log('script start');
+ 
+ setTimeout(function() {
+ 
+  console.log('setTimeout');
+ 
+ }, 0);  
+ 
+ async1();
+ 
+ new Promise(function(resolve) {
+ 
+  console.log('promise1');
+ 
+  resolve();
+ 
+ }).then(function() {
+ 
+  console.log('promise2');
+ 
+ }).then(function() {
+ 
+  console.log('promise3');
+ 
+ });
+ 
+ console.log('script end');
