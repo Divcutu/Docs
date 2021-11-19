@@ -391,6 +391,8 @@ function _new(func, ...args) {
 //   console.log("8");
 // });
 
+
+
 // let p = Promise.resolve(new Promise((resolve) => {
 //   console.log("4");
 //   resolve("async2的结果");
@@ -419,54 +421,70 @@ function _new(func, ...args) {
 // }, 0)
 
 
-async function async1() {
+// async function async1() {
 
-  console.log('async1 start');
+//   console.log('async1 start');
  
-  await async2();
+//   const data = await async2();
+//   console.log(data)
+
+//   console.log('async1 end');
  
-  console.log('async1 end');
+//  }
  
- }
+//  async function async2() {
  
- async function async2() {
+//   console.log('async2 start');
  
-  console.log('async2 start');
+//   return new Promise((resolve, reject) => {
  
-  return new Promise((resolve, reject) => {
+//    resolve('1');
  
-   resolve();
+//    console.log('async2 promise');
  
-   console.log('async2 promise');
+//   })
+//  }
  
-  })
+//  console.log('script start');
  
- }
+//  setTimeout(function() {
  
- console.log('script start');
+//   console.log('setTimeout');
  
- setTimeout(function() {
+//  }, 0);  
  
-  console.log('setTimeout');
+//  async1();
  
- }, 0);  
+//  new Promise(function(resolve) {
  
- async1();
+//   console.log('promise1');
  
- new Promise(function(resolve) {
+//   resolve();
  
-  console.log('promise1');
+//  }).then(function() {
  
-  resolve();
+//   console.log('promise2');
  
- }).then(function() {
+//  }).then(function() {
  
-  console.log('promise2');
+//   console.log('promise3');
  
- }).then(function() {
+//  }).then(function() {
  
-  console.log('promise3');
+//   console.log('promise4');
  
- });
+//  });
  
- console.log('script end');
+//  console.log('script end');
+
+//  `
+//  script start
+//  async1 start
+//  async2 start
+//  async2 promise
+//  promise1
+//  script end
+//  promise2
+//  promise3
+//  async1 end
+//  `
