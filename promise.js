@@ -7,7 +7,7 @@
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected'
-class MyPromise {
+class MyPromise2 {
 
     constructor(executor) {
         // executor 是一个执行器，进入会立即执行
@@ -64,6 +64,51 @@ class MyPromise {
             this.onRejectedCallback.push(onRejected);
         }
     }
+}
+
+
+class MyPromise {
+
+    constructor(executor) {
+        executor(this.resolve, this.reject);
+    }
+
+    status = PENDING;
+    value = null;
+    reason = null;
+
+    onFulfilledCallback = [];
+    onRejectedCallback = []
+
+    resolve = (value) => {
+        this.value = value;
+        this.status = FULFILLED;
+        this.onFulfilledCallback.forEach(val => val());
+    };
+
+    reject = (reason) => {
+        this.status = REJECTED;
+        this.reason = reason;
+        this.onRejectedCallback.forEach(val => val());
+    };
+
+    then(onFulfilled, onRejected) {
+        const promise2 = new MyPromise((resolve, reject) => {
+            if (this.status === FULFILLED) {
+                resolve(onFulfilled(this.value));
+            } else if (this.status === REJECTED) {
+                onRejected(this.reason);
+            } else {
+                this.onFulfilledCallback.push(() => {
+                    queueMicrotask(() => {
+                        resolve(onFulfilled(this.value))
+                    })
+                });
+                this.onRejectedCallback.push(onRejected);
+            }
+        })
+        return promise2
+    };
 }
 
 module.exports = MyPromise

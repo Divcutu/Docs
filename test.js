@@ -391,6 +391,8 @@ function _new(func, ...args) {
 //   console.log("8");
 // });
 
+
+
 // let p = Promise.resolve(new Promise((resolve) => {
 //   console.log("4");
 //   resolve("async2的结果");
@@ -419,54 +421,90 @@ function _new(func, ...args) {
 // }, 0)
 
 
-async function async1() {
+// async function async1() {
 
-  console.log('async1 start');
+//   console.log('async1 start');
  
-  await async2();
+//   const data = await async2();
+//   console.log(data)
+
+//   console.log('async1 end');
  
-  console.log('async1 end');
+//  }
  
- }
+//  async function async2() {
  
- async function async2() {
+//   console.log('async2 start');
  
-  console.log('async2 start');
+//   return new Promise((resolve, reject) => {
  
-  return new Promise((resolve, reject) => {
+//    resolve('1');
  
-   resolve();
+//    console.log('async2 promise');
  
-   console.log('async2 promise');
+//   })
+//  }
  
-  })
+//  console.log('script start');
  
- }
+//  setTimeout(function() {
  
- console.log('script start');
+//   console.log('setTimeout');
  
- setTimeout(function() {
+//  }, 0);  
  
-  console.log('setTimeout');
+//  async1();
  
- }, 0);  
+//  new Promise(function(resolve) {
  
- async1();
+//   console.log('promise1');
  
- new Promise(function(resolve) {
+//   resolve();
  
-  console.log('promise1');
+//  }).then(function() {
  
-  resolve();
+//   console.log('promise2');
  
- }).then(function() {
+//  }).then(function() {
  
-  console.log('promise2');
+//   console.log('promise3');
  
- }).then(function() {
+//  }).then(function() {
  
-  console.log('promise3');
+//   console.log('promise4');
  
- });
+//  });
  
- console.log('script end');
+//  console.log('script end');
+
+//  `
+//  script start
+//  async1 start
+//  async2 start
+//  async2 promise
+//  promise1
+//  script end
+//  promise2
+//  promise3
+//  async1 end
+//  `
+
+
+/**
+ * https: https://blog.csdn.net/hbdatouerzi/article/details/71440206
+ * xss、csrf: https://blog.csdn.net/qq_41805715/article/details/88393410
+ * js tree 前序、中序、 后序： https://www.cnblogs.com/echolun/p/13328927.html
+ * tcp udp: https://blog.csdn.net/qq_43685242/article/details/108490347
+ * 移动端0.5px： https://www.cnblogs.com/10manongit/p/12779153.html
+ * 继承： https://segmentfault.com/a/1190000016708006
+ * 柯理化： https://www.jianshu.com/p/2975c25e4d71
+ * 白屏、首屏： https://www.cnblogs.com/longm/p/7382163.html
+ * js 隐式转换： https://www.cnblogs.com/chenmeng0818/p/5954215.html
+ * webpack-loader、plugin： https://www.jianshu.com/p/c021b78c9ef2
+ * vue-router： https://zhuanlan.zhihu.com/p/27588422
+ * 
+ * 待学习：
+ * service worker
+ * 监听网页崩溃、报错
+ * 
+ */
