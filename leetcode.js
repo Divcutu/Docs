@@ -99,4 +99,173 @@ var longestPalindrome = function(s) {
 };
 
 let s = "rgczcpratwyqxaszbuwwcadruayhasynuxnakpmsyhxzlnxmdtsqqlmwnbxvmgvllafrpmlfuqpbhjddmhmbcgmlyeypkfpreddyencsdmgxysctpubvgeedhurvizgqxclhpfrvxggrowaynrtuwvvvwnqlowdihtrdzjffrgoeqivnprdnpvfjuhycpfydjcpfcnkpyujljiesmuxhtizzvwhvpqylvcirwqsmpptyhcqybstsfgjadicwzycswwmpluvzqdvnhkcofptqrzgjqtbvbdxylrylinspncrkxclykccbwridpqckstxdjawvziucrswpsfmisqiozworibeycuarcidbljslwbalcemgymnsxfziattdylrulwrybzztoxhevsdnvvljfzzrgcmagshucoalfiuapgzpqgjjgqsmcvtdsvehewrvtkeqwgmatqdpwlayjcxcavjmgpdyklrjcqvxjqbjucfubgmgpkfdxznkhcejscymuildfnuxwmuklntnyycdcscioimenaeohgpbcpogyifcsatfxeslstkjclauqmywacizyapxlgtcchlxkvygzeucwalhvhbwkvbceqajstxzzppcxoanhyfkgwaelsfdeeviqogjpresnoacegfeejyychabkhszcokdxpaqrprwfdahjqkfptwpeykgumyemgkccynxuvbdpjlrbgqtcqulxodurugofuwzudnhgxdrbbxtrvdnlodyhsifvyspejenpdckevzqrexplpcqtwtxlimfrsjumiygqeemhihcxyngsemcolrnlyhqlbqbcestadoxtrdvcgucntjnfavylip"
-console.log(longestPalindrome(s))
+// console.log(longestPalindrome(s))
+
+const data = [[1,2,3,4,5],[2,3,4,5,6],[2, 43,65],[3,245,656,32,43],[34,32,32,31,55]];
+
+const flat = (params) => {
+  let _params = params;
+  const ret = [];
+  const mayFlat = () => {
+    if (_params.length === 0) {
+      return;
+    }
+    if (_params.length === 1) {
+      ret.push(..._params[0]);
+      return;
+    }
+    let pre = new Array(_params.length - 2);
+    let end = new Array(_params.length - 2);
+    for (let i = 1; i < _params.length - 1; i++) {
+      pre.push(_params[i].pop());
+      end.unshift(_params[i].shift());
+    }
+    _params = _params.filter(val => val.length);
+    ret.push(..._params.shift(), ...pre.filter(val => !!val || val === 0), ..._params.pop().reverse(), ...end.filter(val => val));
+    if (_params.length) {
+      mayFlat();
+    }
+  }
+  mayFlat();
+  return ret;
+}
+
+// const ret= flat(data)
+// console.log(ret)
+
+// 腾讯云面试题  把数组转为树结构
+const flatTreeData = [
+  { id: "1", parentId: "0" },
+  { id: "1-1", parentId: "1" },
+  { id: "1-1-1", parentId: "1-1" },
+  { id: "1-2", parentId: "1" },
+  { id: "1-3", parentId: "1" },
+  { id: "2", parentId: "0" },
+  { id: "2-1", parentId: "2" },
+  { id: "2-2", parentId: "2" },
+  { id: "2-3", parentId: "2" }
+];
+
+const buildTree = (arr) => {
+  let ret = {};
+  for (let i = 0; i < arr.length; i++) {
+    const { parentId } = arr[i];
+    const parent = arr.find(val => val.id === parentId);
+    if (parent) {
+      !parent?.children && (parent.children = []);
+      parent.children.push(arr[i])
+    } else {
+      ret[arr[i].id] = arr[i];
+    }
+  }
+  return ret;
+};
+// console.log(JSON.stringify(buildTree(flatTreeData)));
+//   实现一个 QQMan:
+// QQMan("jack") 输出:
+// I am jack
+
+/**
+ * 
+  QQMan("jack").rest(10).learn("computer") 输出:
+  I am jack
+  //等待10秒
+  Start learning after 10 seconds
+  Learning computer
+
+  QQMan("jack").restFirst(5).learn("chinese") 输出:
+  //等待5秒
+  Start learning after 5 seconds
+  I am jack
+  Learning chinese
+ */
+
+// 使用类
+class QQMan {
+  firstTime = 0;
+  constructor(name = '') {
+    setTimeout(() => {
+      if (this.firstTime) {
+        console.log(`Start learning after ${this.firstTime} seconds`);
+      }
+      console.log(`I am ${name}`)
+    }, time)
+  }
+
+}
+
+
+
+var search = function(nums, target) {
+
+  let left = 0;
+  let right =  Math.floor(nums.length / 2);
+  let ret = -1;
+  if (nums[left] === target) return left;
+  if (nums[right] === target) return right;
+  if (nums[left] < target && nums[right] > target) {
+  } else {
+      left = Math.floor(nums.length / 2);
+      right = nums.length - 1;
+  }
+  if (right === left) {
+    if (nums[left] === target) return left;
+    else return -1 
+  }
+  while (nums[ret] !== target && left !== right) {
+      let curr = left + Math.floor((right -left) / 2);
+      console.log(left, right, nums[curr] )
+      if (nums[curr] === target) {
+        ret = curr;
+      }
+      if (curr === left) {
+        if (nums[right] === target) return right;
+        break;
+      }
+      else if (nums[left] < nums[curr] && nums[left] < target && nums[curr] > target) {
+          right = curr;
+      } else if (nums[left] < nums[curr] && nums[left] < target && nums[curr] < target) {
+          left = curr;
+      } else if (nums[left] < nums[curr] && nums[left] > target && nums[curr] < target) {
+           left = curr;
+      } else if (nums[left] > nums[curr] && nums[left] > target && nums[curr] > target) {
+          right = curr;
+      } else {
+        break;
+      }
+  }
+   return ret
+};
+
+// console.log(search([4,5,6,7,0,1,2], 1))
+
+
+/**
+ * react 与vue 的区别
+ * 
+ * get post 区别 cookie session localStroage
+ * 
+ * react 跟 vue 的原理 diff
+ * 
+ * 自定义hook  泛型约束  reactredux
+ * 
+ */
+
+var simplifyPath = function(path) {
+  const stack = [];
+  let arr = path.split('/');
+  for (let i = 0; i < arr.length; i++) {
+      if (arr[i]) {
+          if (arr[i] === '..') {
+              stack.pop();
+          } else {
+              stack.push(arr[i])
+          }
+      }
+  }
+  console.log( stack)
+
+  return '/' + stack.join('/')
+};
+
+console.log(simplifyPath("/home/"));

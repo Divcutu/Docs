@@ -297,7 +297,6 @@ function _new(func, ...args) {
 // setTimeout(() => {
 //   history.pushState({key: 1}, '', 'advance-css/发光按钮/index.html')
 // }, 3000)
-// 加油 杜玄祥！！！ 你可以的。 相信自己。 努力努力再努力！！！
 // window.addEventListener('hashchange', () => { console.log('hashchange') })
 // setTimeout(() => {
 //   location.hash = '#/aa'
@@ -507,4 +506,24 @@ function _new(func, ...args) {
  * service worker
  * 监听网页崩溃、报错
  * 
+ * 
+ * 
+ * 手写usecontent
+ * promise。all race some 区别
+ * redux、
+ * 泛型的方法。
+ * 自己写的hooks 封装计时器啥的
+ * Object。keys .ownProperties 的区别 for in of 的区别
+ * instanceof type 的作用区别。 instanceof原理
+ * 对 async 方法 promise 箭头函数 instanceof 以及 object.tostring的返回
  */
+
+Promise.resolve().then(() => {
+  console.log('current 1', Date.now())
+  let time = Date.now();
+  for(let i = time; i - time < 2000; i++){ i = Date.now()}
+  
+   console.log('current 2', Date.now())
+})
+
+setTimeout(() => { console.log('current 3', Date.now())}, 1000)

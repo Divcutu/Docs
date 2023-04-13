@@ -12,7 +12,7 @@ Function.prototype.myCall = function(content, ...args) {
 
     content[fun] = this;
 
-    Reflect.deleteProperty(content, fun);
+    // Reflect.deleteProperty(content, fun);
 
     return content[fun](...args)
 }
@@ -28,7 +28,7 @@ Function.prototype.myApply = function(content, args = []) {
 
     content[fun] = this;
     
-    Reflect.deleteProperty(content, fun);
+    // Reflect.deleteProperty(content, fun);
 
     return content[fun](...args)
 }
