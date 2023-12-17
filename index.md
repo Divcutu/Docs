@@ -6,6 +6,16 @@
 
     显示git记录
 
+2. CssPeek
+
+3. Draw.io Integration
+
+    绘图插件
+
+4. GitHub Repositories
+
+    在vscode 上直接打开远程仓库
+
 ## 常用Chrome插件
 
 1. 沉浸式翻译
