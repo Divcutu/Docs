@@ -16,6 +16,10 @@
 
     在vscode 上直接打开远程仓库
 
+5. themes
+
+    vsCode 主题色 **<https://vscodethemes.com/>**
+
 ## 常用Chrome插件
 
 1. 沉浸式翻译
